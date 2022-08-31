@@ -74,5 +74,10 @@ const searchingProcess =(dataLimit) => {
     const searchText = searchField.value;
     loadPhones(searchText, dataLimit)
 }
-    
+
+document.getElementById('search-field').addEventListener('keypress', function(e){
+    if(e.key === 'Enter'){
+        searchingProcess(10)
+    }
+})
 
