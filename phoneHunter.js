@@ -42,6 +42,7 @@ const displayPhones = (phones, dataLimit) =>{
                   <h3 class="card-title text-center">Brand: ${phone.brand}<br> Model: ${phone.phone_name}</h3>
                   <p class="card-text text-center">${phone.slug}</p>
                 </div>
+                <button onclick="loadPhoneDetails('${phone.slug}')" type="button" class="btn btn-secondary btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Show Details</button>
               </div>
         `;
         displayPhone.appendChild(phoneDiv)
@@ -75,9 +76,17 @@ const searchingProcess =(dataLimit) => {
     loadPhones(searchText, dataLimit)
 }
 
+//Enter key search
 document.getElementById('search-field').addEventListener('keypress', function(e){
     if(e.key === 'Enter'){
         searchingProcess(10)
     }
 })
+
+// show phone details in modal 
+const loadPhoneDetails = async(id) =>{
+    const response = await fetch (` https://openapi.programming-hero.com/api/phone/${id}`)
+    const data = await response.json()
+    console.log(data.data)
+}
 
