@@ -1,26 +1,36 @@
-const loadPhones = async(searchText) => {
+const loadPhones = async(searchText, dataLimit) => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     const res = await fetch(url)
     const data = await res.json()
-    displayPhones(data.data)
+    displayPhones(data.data, dataLimit)
 }
 // loadPhones()
 
-const displayPhones = (phones) =>{
+const displayPhones = (phones, dataLimit) =>{
+    
+    
     // console.log(phones)
-
+    const displayPhone = document.getElementById('display-phone')
+    displayPhone.textContent = ''
+    //display 10 phones only 
+    
     // search message 
     const searchMessage = document.getElementById('search-message')
-    if(phones.length ===0){
+    const showAllButton = document.getElementById('show-all')
+    if(phones.length === 0){
         searchMessage.classList.remove('d-none')
+        showAllButton.classList.add('d-none')
+    }
+    else if(dataLimit && phones.length > 10){
+        phones = phones.slice(0,10)
+        showAllButton.classList.remove('d-none')
     }
     else{
         searchMessage.classList.add('d-none')
+        // showAllButton.classList.add('d-none')
     }
 
     //display phone in card and set inner html
-    const displayPhone = document.getElementById('display-phone')
-    displayPhone.innerHTML = ''
     
     phones.forEach(phone=> {
         const phoneDiv = document.createElement('div')
@@ -39,14 +49,14 @@ const displayPhones = (phones) =>{
     loadSpinner(false)
 }
 
-// search phone by name or text
+
+
+// search phone by name or text and show only 10
 document.getElementById('btn-search').addEventListener('click', function(){
-    loadSpinner(true)
-    const searchField = document.getElementById('search-field');
-    const searchText = searchField.value;
-    loadPhones(searchText)
+    searchingProcess(10)
 })
 
+//load spinner
 const loadSpinner = (isLoading) =>{
     const spinner = document.getElementById('btn-spinner')
     if(isLoading){
@@ -56,6 +66,13 @@ const loadSpinner = (isLoading) =>{
         spinner.classList.add('d-none')
     }
 }
-//add spinner in loading time 
+
+// searching function and full data load 
+const searchingProcess =(dataLimit) => {
+    loadSpinner(true)
+    const searchField = document.getElementById('search-field');
+    const searchText = searchField.value;
+    loadPhones(searchText, dataLimit)
+}
     
 

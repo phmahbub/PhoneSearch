@@ -13,22 +13,32 @@
 <body style="font-family: 'Roboto Serif', serif;">
    <header><h1 style="font-family: 'Righteous', cursive;" class="text-center text-primary mt-5 mb-4">Search Your Phone </h1></header>
    <main class="container">
+
+    <!------------------------------ search section   ----------------------------->
     <section>
         <div class="input-group mb-3">
             <input id="search-field" type="text" class="form-control text-center fw-bold py-2" placeholder="Phone Name or text" aria-label="Recipient's username" aria-describedby="btn-search">
-            <button class="btn btn-outline-secondary btn-info text-white fw-bold" type="button" id="btn-search">Search</button>
+            <button class="btn btn-outline-success btn-info text-white fw-bold rounded" type="button" id="btn-search">Search</button>
+                <!-------------------- load spinner  ------------------->
             <button id="btn-spinner" class="btn btn-success d-none" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Loading...
             </button>
         </div> 
     </section>
+
+
+    <!----------------------- display section  -------------------------------->
     <section class="mt-5">
         <div id="display-phone" class="row row-cols-1 row-cols-md-3 g-4">
               
         </div>
+        <div class="text-center d-none my-5" id="show-all">
+            <button onclick="searchingProcess()" id="btn-show-all" type="button" class="btn btn-info text-light fw-semibold btn-outline-success">Show All</button>
+        </div>
 
     </section>
+    <!---------------------------- search message  ---------------------------->
     <section id="search-message" class="d-none">
         <h4 class="text-danger text-center fw-semibold f">No Phone Found. Please try new search</h4>
     </section>
